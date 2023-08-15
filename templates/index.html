@@ -1,9 +1,23 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block head %} 
 
 {% endblock %}
 
-{% block body %} 
-
+{% block body %}
+<div class="container">
+    <h1>Trading Simulator</h1>
+    <table>
+        <tr>
+            <td>id</td>
+            <td>Stock ticker</td>
+            <td>Stock price at BUY</td>
+        </tr>
+        {% if api_data %}
+            <tr><td>{{ api_data }}</td></tr>
+        {% else %}
+            <tr>No data available.</tr>
+        {% endif %}
+    </table>
+</div>
 {% endblock %}
