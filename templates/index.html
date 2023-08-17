@@ -7,16 +7,71 @@
 {% block body %}
 <div class="container">
     <h1>Trading Simulator</h1>
+    <h2>Stock BUY panel</h2>
     <table>
         <tr>
-            <td>id</td>
-            <td>Stock ticker</td>
-            <td>Stock price at BUY</td>
+            <th>Stock ticker</th>
+            <th>Stock price CURRENT</th>
+            <th>Action</th>
         </tr>
         {% if api_data %}
-            <tr><td>{{ api_data }}</td></tr>
+            <tr>
+                <td>ticker test</td>
+                <td>{{ api_data }}</td>
+                <td><button>BUY</button></td>
+            </tr>
         {% else %}
-            <tr>No data available.</tr>
+            <tr>
+                <td>No data available.</td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <h2>Open positions</h2>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Stock ticker</th>
+            <th>Stock price at BUY</th>
+            <th>Stock price CURRENT</th>
+            <th>Action</th>
+        </tr>
+        {% if api_data %}
+            <tr>
+                <td>id test</td>
+                <td>ticker test</td>
+                <td>{{ api_data }}</td>
+                <td>{{ api_data }}</td>
+                <td><button>SELL</button></td>
+            </tr>
+        {% else %}
+        <tr>
+            <td>No data available.</td>
+        </tr>
+        {% endif %}
+    </table>
+
+    <h2>Closed positions</h2>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Stock ticker</th>
+            <th>Stock price at BUY</th>
+            <th>Stock price at SELL</th>
+            <th>Profit/Loss</th>
+        </tr>
+        {% if api_data %}
+            <tr>
+                <td>id test</td>
+                <td>ticker test</td>
+                <td>{{ api_data }}</td>
+                <td>{{ api_data }}</td>
+                <td>0</td>
+            </tr>
+        {% else %}
+        <tr>
+            <td>No data available.</td>
+        </tr>
         {% endif %}
     </table>
 </div>

@@ -62,4 +62,41 @@ body, h1, h2, h3, p, ul, ol, li {
   a:hover {
     text-decoration: underline;
   }
+
+  /* Apply some basic styling to the table */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  /* Add a border to the table cells */
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  
+  /* Style the table header */
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  /* Style the table cells */
+  td {
+    padding: 10px;
+  }
+  
+  /* Add alternating background color to table rows */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Highlight table rows on hover */
+  tr:hover {
+    background-color: #e0e0e0;
+  }
+  
   
