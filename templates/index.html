@@ -7,6 +7,8 @@
 {% block body %}
 <div class="container">
     <h1>Trading Simulator</h1>
+
+    <!-- BUY -->
     <h2>Stock BUY panel</h2>
     <table>
         <tr>
@@ -17,8 +19,14 @@
         {% if api_data %}
             <tr>
                 <td>ticker test</td>
-                <td>{{ api_data }}</td>
-                <td><button>BUY</button></td>
+                <td>10</td>
+                <td>
+                    <form method="POST" action="/buy">
+                        <input type="hidden" name="stock_ticker" value="ticker test">
+                        <input type="hidden" name="stock_price_current" value="10">
+                        <input type="submit" value="BUY">
+                    </form>
+                </td>
             </tr>
         {% else %}
             <tr>
@@ -27,6 +35,7 @@
         {% endif %}
     </table>
 
+    <!-- OPEN/SELL -->
     <h2>Open positions</h2>
     <table>
         <tr>
@@ -36,14 +45,22 @@
             <th>Stock price CURRENT</th>
             <th>Action</th>
         </tr>
-        {% if api_data %}
-            <tr>
-                <td>id test</td>
-                <td>ticker test</td>
-                <td>{{ api_data }}</td>
-                <td>{{ api_data }}</td>
-                <td><button>SELL</button></td>
-            </tr>
+        {% if trade_positions_opened %}
+            {% for trade_position in trade_positions_opened %}
+                <tr>
+                    <td>{{ trade_position.id }}</td>
+                    <td>{{ trade_position.stock_ticker }}</td>
+                    <td>{{ trade_position.stock_price_at_buy }}</td>
+                    <td>50</td>
+                    <td>                
+                        <form method="POST" action="/sell">
+                            <input type="hidden" name="id" value="{{ trade_position.id }}">
+                            <input type="hidden" name="stock_price_at_sell" value="50">
+                            <input type="submit" value="SELL">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
         {% else %}
         <tr>
             <td>No data available.</td>
@@ -51,6 +68,7 @@
         {% endif %}
     </table>
 
+    <!-- CLOSED -->
     <h2>Closed positions</h2>
     <table>
         <tr>
@@ -60,14 +78,16 @@
             <th>Stock price at SELL</th>
             <th>Profit/Loss</th>
         </tr>
-        {% if api_data %}
-            <tr>
-                <td>id test</td>
-                <td>ticker test</td>
-                <td>{{ api_data }}</td>
-                <td>{{ api_data }}</td>
-                <td>0</td>
-            </tr>
+        {% if trade_positions_closed %}
+            {% for trade_position in trade_positions_closed %}
+                <tr>
+                    <td>{{ trade_position.id }}</td>
+                    <td>{{ trade_position.stock_ticker }}</td>
+                    <td>{{ trade_position.stock_price_at_buy }}</td>
+                    <td>{{ trade_position.stock_price_at_sell }}</td>
+                    <td>{{ trade_position.stock_price_at_sell - trade_position.stock_price_at_buy }}</td>
+                </tr>
+            {% endfor %}
         {% else %}
         <tr>
             <td>No data available.</td>
