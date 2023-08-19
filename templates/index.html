@@ -51,7 +51,11 @@
                     <td>{{ trade_position.id }}</td>
                     <td>{{ trade_position.crypto_ticker }}</td>
                     <td>{{ trade_position.crypto_price_at_buy }}</td>
-                    <td>{{ ticker_prices_json.get(trade_position.crypto_ticker) }}</td>
+                    {% if (ticker_prices_json.get(trade_position.crypto_ticker) - trade_position.crypto_price_at_buy) < 0 %}
+                        <td class="green-text">{{ ticker_prices_json.get(trade_position.crypto_ticker) }}</td>
+                    {% else %}
+                        <td class="red-text">{{ ticker_prices_json.get(trade_position.crypto_ticker) }}</td>
+                    {% endif %}
                     <td>                
                         <form method="POST" action="/sell">
                             <input type="hidden" name="id" value="{{ trade_position.id }}">
@@ -85,7 +89,11 @@
                     <td>{{ trade_position.crypto_ticker }}</td>
                     <td>{{ trade_position.crypto_price_at_buy }}</td>
                     <td>{{ trade_position.crypto_price_at_sell }}</td>
-                    <td>{{ trade_position.crypto_price_at_sell - trade_position.crypto_price_at_buy }}</td>
+                    {% if (trade_position.crypto_price_at_sell  - trade_position.crypto_price_at_buy) < 0 %}
+                        <td class="green-text">{{ trade_position.crypto_price_at_sell - trade_position.crypto_price_at_buy }}</td>
+                    {% else %}
+                        <td class="red-text">{{ trade_position.crypto_price_at_sell - trade_position.crypto_price_at_buy }}</td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         {% else %}

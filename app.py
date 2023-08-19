@@ -7,7 +7,7 @@ from api_utils import ping, get_top5_ticker_prices
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///trade_sim.db'
 db = SQLAlchemy(app)
-recreate_db = True
+recreate_db = False
 
 class Trade_position(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
