@@ -15,14 +15,14 @@
             <th>Action</th>
         </tr>
         {% if ticker_prices %}
-            {% for ticker_price in ticker_prices %}
+            {% for ticker_price in ticker_prices_json %}
             <tr>
-                <td>{{ ticker_price.get('symbol') }}</td>
-                <td>{{ ticker_price.get('price') }}</td>
+                <td>{{ ticker_price }}</td>
+                <td>{{ ticker_prices_json.get(ticker_price) }}</td>
                 <td>
                     <form method="POST" action="/buy">
-                        <input type="hidden" name="crypto_ticker" value="{{ ticker_price.get('symbol') }}">
-                        <input type="hidden" name="crypto_price_current" value="{{ ticker_price.get('price') }}">
+                        <input type="hidden" name="crypto_ticker" value="{{ ticker_price }}">
+                        <input type="hidden" name="crypto_price_current" value="{{ ticker_prices_json.get(ticker_price) }}">
                         <input type="submit" value="BUY">
                     </form>
                 </td>
