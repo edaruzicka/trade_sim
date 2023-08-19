@@ -105,3 +105,11 @@ body, h1, h2, h3, p, ul, ol, li {
     width: auto; /* Maintain aspect ratio */
 }
   
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black !important;
+    color: white;
+    filter: invert(1);
+  }
+}

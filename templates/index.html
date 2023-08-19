@@ -7,25 +7,27 @@
 {% block body %}
 <div class="container">
     <!-- BUY -->
-    <h2>Stock BUY panel</h2>
+    <h2>Crypto BUY panel</h2>
     <table>
         <tr>
-            <th>Stock ticker</th>
-            <th>Stock price CURRENT</th>
+            <th>Crypto ticker</th>
+            <th>Crypto price CURRENT</th>
             <th>Action</th>
         </tr>
-        {% if api_data %}
+        {% if ticker_prices %}
+            {% for ticker_price in ticker_prices %}
             <tr>
-                <td>ticker test</td>
-                <td>10</td>
+                <td>{{ ticker_price.get('symbol') }}</td>
+                <td>{{ ticker_price.get('price') }}</td>
                 <td>
                     <form method="POST" action="/buy">
-                        <input type="hidden" name="stock_ticker" value="ticker test">
-                        <input type="hidden" name="stock_price_current" value="10">
+                        <input type="hidden" name="crypto_ticker" value="{{ ticker_price.get('symbol') }}">
+                        <input type="hidden" name="crypto_price_current" value="{{ ticker_price.get('price') }}">
                         <input type="submit" value="BUY">
                     </form>
                 </td>
             </tr>
+            {% endfor %}
         {% else %}
             <tr>
                 <td>No data available.</td>
@@ -38,22 +40,22 @@
     <table>
         <tr>
             <th>id</th>
-            <th>Stock ticker</th>
-            <th>Stock price at BUY</th>
-            <th>Stock price CURRENT</th>
+            <th>Crypto ticker</th>
+            <th>Crypto price at BUY</th>
+            <th>Crypto price CURRENT</th>
             <th>Action</th>
         </tr>
         {% if trade_positions_opened %}
             {% for trade_position in trade_positions_opened %}
                 <tr>
                     <td>{{ trade_position.id }}</td>
-                    <td>{{ trade_position.stock_ticker }}</td>
-                    <td>{{ trade_position.stock_price_at_buy }}</td>
-                    <td>50</td>
+                    <td>{{ trade_position.crypto_ticker }}</td>
+                    <td>{{ trade_position.crypto_price_at_buy }}</td>
+                    <td>{{ ticker_prices_json.get(trade_position.crypto_ticker) }}</td>
                     <td>                
                         <form method="POST" action="/sell">
                             <input type="hidden" name="id" value="{{ trade_position.id }}">
-                            <input type="hidden" name="stock_price_at_sell" value="50">
+                            <input type="hidden" name="crypto_price_at_sell" value="{{ ticker_prices_json.get(trade_position.crypto_ticker) }}">
                             <input type="submit" value="SELL">
                         </form>
                     </td>
@@ -71,19 +73,19 @@
     <table>
         <tr>
             <th>id</th>
-            <th>Stock ticker</th>
-            <th>Stock price at BUY</th>
-            <th>Stock price at SELL</th>
+            <th>Crypto ticker</th>
+            <th>Crypto price at BUY</th>
+            <th>Crypto price at SELL</th>
             <th>Profit/Loss</th>
         </tr>
         {% if trade_positions_closed %}
             {% for trade_position in trade_positions_closed %}
                 <tr>
                     <td>{{ trade_position.id }}</td>
-                    <td>{{ trade_position.stock_ticker }}</td>
-                    <td>{{ trade_position.stock_price_at_buy }}</td>
-                    <td>{{ trade_position.stock_price_at_sell }}</td>
-                    <td>{{ trade_position.stock_price_at_sell - trade_position.stock_price_at_buy }}</td>
+                    <td>{{ trade_position.crypto_ticker }}</td>
+                    <td>{{ trade_position.crypto_price_at_buy }}</td>
+                    <td>{{ trade_position.crypto_price_at_sell }}</td>
+                    <td>{{ trade_position.crypto_price_at_sell - trade_position.crypto_price_at_buy }}</td>
                 </tr>
             {% endfor %}
         {% else %}
