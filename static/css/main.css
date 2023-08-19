@@ -99,4 +99,9 @@ body, h1, h2, h3, p, ul, ol, li {
     background-color: #e0e0e0;
   }
   
+  /* Navbar image change size dynamically without causing the navbar to expand */
+  .navbar-brand img {
+    max-height: 40px; /* Set the desired maximum height for the logo */
+    width: auto; /* Maintain aspect ratio */
+}
   

@@ -3,3 +3,4 @@ requirements.txt
 venv/
 instance/
 __pycache__/
+.env

@@ -1,6 +1,10 @@
-import yfinance as yf
+import os
+from dotenv import load_dotenv
 
-def get_current_sp500_price():
-    sp500 = yf.Ticker('^GSPC')
-    current_price = sp500.history(period='1d')['Close'][-1]
-    return current_price
+load_dotenv()
+
+api_key = os.environ.get('API_KEY')
+
+headers = {
+    'X-MBX-APIKEY': api_key,
+}
