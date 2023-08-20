@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 from api_utils import ping, get_top5_ticker_prices
+from utils import calculate_total_profit_loss
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///trade_sim.db'
@@ -32,7 +33,8 @@ def index():
     ticker_prices, ticker_prices_json = get_top5_ticker_prices()
     trade_positions_opened = Trade_position.query.where(Trade_position.date_sell==None).order_by(Trade_position.date_buy).all()
     trade_positions_closed = Trade_position.query.where(Trade_position.date_sell!=None).order_by(Trade_position.date_sell).all()
-    return render_template('index.html', trade_positions_opened=trade_positions_opened, trade_positions_closed=trade_positions_closed, ticker_prices=ticker_prices, ticker_prices_json=ticker_prices_json)
+    total_profit = calculate_total_profit_loss(Trade_position)
+    return render_template('index.html', trade_positions_opened=trade_positions_opened, trade_positions_closed=trade_positions_closed, ticker_prices=ticker_prices, ticker_prices_json=ticker_prices_json, total_profit=total_profit)
 
 @app.route('/buy', methods=['POST'])
 def buy():
